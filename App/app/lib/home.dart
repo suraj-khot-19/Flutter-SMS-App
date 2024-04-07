@@ -1,4 +1,3 @@
-import 'package:app/from_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,43 +10,78 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  final String pattern = r'^[0-9]{10}$';
-  var name = TextEditingController();
   var ph = TextEditingController();
+  var msg = TextEditingController();
+  RegExp mobileNumberPattern = RegExp(r'[0-9]{10}$');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Message to Number"),
-        backgroundColor: const Color.fromARGB(255, 232, 118, 156),
+        title: const Center(
+          child: Text("Message To Number",
+              style: TextStyle(
+                color: Colors.white,
+              )),
+        ),
+        backgroundColor: const Color.fromARGB(255, 156, 91, 113),
       ),
       body: Column(
         children: [
+          //mobile number TextField
           Container(
             margin: const EdgeInsets.all(20),
             child: TextField(
               controller: ph,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-              )),
+                hintText: 'enter 10 degit Mobile number',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(pattern)),
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9+]')),
                 FilteringTextInputFormatter.digitsOnly,
               ],
             ),
           ),
+          //message TextField
+          Container(
+            margin: const EdgeInsets.all(20),
+            child: TextField(
+              controller: msg,
+              decoration: InputDecoration(
+                hintText: 'enter message',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          ),
           Center(
-            child: MaterialButton(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20), // Adjust as needed
+                ),
+              ),
               onPressed: () async {
-                var phoneNumber = ph.text.toString();
-                final _text = 'sms:$phoneNumber';
-                if (await canLaunch(_text)) {
-                  await launch(_text);
+                final phoneNumber = ph.text.toString();
+                if (mobileNumberPattern.hasMatch(phoneNumber)) {
+                  String _text =
+                      "sms:$phoneNumber?body=${Uri.encodeQueryComponent(msg.text.toString())}";
+                  if (await canLaunch(_text)) {
+                    await launch(_text);
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Invalid phone number'),
+                    duration: Duration(seconds: 5),
+                  ));
                 }
               },
-              color: Colors.blue,
               child: const Text(
                 "text",
                 style: TextStyle(
