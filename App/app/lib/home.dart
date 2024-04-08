@@ -13,6 +13,8 @@ class _MyHomeState extends State<MyHome> {
   var ph = TextEditingController();
   var msg = TextEditingController();
   RegExp mobileNumberPattern = RegExp(r'[0-9]{10}$');
+  final _maxLength = 160;
+  final _regExp = RegExp(r'^.{0,160}$');
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class _MyHomeState extends State<MyHome> {
             child: TextField(
               controller: ph,
               decoration: InputDecoration(
-                hintText: 'enter 10 degit Mobile number',
+                labelText: 'Enter 10 digit mobile number',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -52,11 +54,15 @@ class _MyHomeState extends State<MyHome> {
             child: TextField(
               controller: msg,
               decoration: InputDecoration(
-                hintText: 'enter message',
+                labelText: 'Enter text (max $_maxLength characters)',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(_regExp),
+              ],
+              maxLength: _maxLength,
             ),
           ),
           Center(
