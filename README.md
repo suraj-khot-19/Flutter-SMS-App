@@ -1,7 +1,4 @@
 #  creating app which send SMS to any mobile number
-<img src="assets\img1.png">
-<img src="assets\img2.png">
-<img src="assets\img3.png">
-![](assets\img1.png)
-![](assets\img2.png)
-![](assets\img3.png)
+![ss1](https://github.com/suraj-khot-19/img/blob/main/img1.png)
+![ss2](https://github.com/suraj-khot-19/img/blob/main/img2.png)
+![ss3](https://github.com/suraj-khot-19/img/blob/main/img3.png)
