@@ -22,38 +22,10 @@ import 'package:url_launcher/url_launcher.dart';
 <br></p><br>
 <li>Configuration </li>
 <p>
+<br>
 <b>iOS </b>
 Add any URL schemes passed to canLaunchUrl as LSApplicationQueriesSchemes entries in your Info.plist file, otherwise it will return false.
-
-Example:
-
-<key>LSApplicationQueriesSchemes</key>
-<array>
-<string>sms</string>
-<string>tel</string>
-</array>
-See -[UIApplication canOpenURL:] for more details.
-
+<br>
 <b>Android</b>
 Add any URL schemes passed to canLaunchUrl as <queries> entries in your AndroidManifest.xml, otherwise it will return false in most cases starting on Android 11 (API 30) or higher. Checking for supportsLaunchMode(LaunchMode.inAppBrowserView) also requires a <queries> entry to return anything but false. A <queries> element must be added to your manifest as a child of the root element.
-
-Example:
-
-<!-- Provide required visibility configuration for API level 30 and above -->
-<queries>
-  <!-- If your app checks for SMS support -->
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="sms" />
-  </intent>
-  <!-- If your app checks for call support -->
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="tel" />
-  </intent>
-  <!-- If your application checks for inAppBrowserView launch mode support -->
-  <intent>
-    <action android:name="android.support.customtabs.action.CustomTabsService" />
-  </intent>
-</queries>
-See the Android documentation for examples of other queries.</p>
+</p>
