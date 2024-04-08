@@ -2,5 +2,3 @@
 <img src="assets\screenshot\img1.png">
 <img src="assets\screenshot\img2.png">
 <img src="assets\screenshot\img3.png">
-
-
